@@ -1,0 +1,89 @@
+{
+  "name": "light-stopwatch",
+  "displayName": "Light Stopwatch",
+  "publisher": "kaili7",
+  "description": "A stopwatch with milliseconds in statusbar",
+  "version": "1.0.0",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "repository": "https://github.com/kaili7/vs-stopwatch",
+  "keywords": [
+    "stopwatch",
+    "timer"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Light Stopwatch",
+      "type": "object",
+      "properties": {
+        "light-stopwatch.defaultShow": {
+          "type": "boolean",
+          "default": true,
+          "description": "Stopwatch will show up when extension loaded(activated).",
+          "order": 0
+        },
+        "light-stopwatch.enableRecords": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Enable records function in tooltip panel.\n\n *Since VS Code dont refresh tooltip when it's up, you need to let it hide and show again to see added records(or any changes).*",
+          "order": 1
+        },
+        "light-stopwatch.defaultAbsRecrod": {
+          "type": "boolean",
+          "default": true,
+          "description": "Records use absoulte elapsed time when extension loaded(activated).",
+          "order": 2
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "light-stopwatch.toggleVisualizability",
+        "title": "Toggle Show/Hide State",
+        "category": "Light Stopwatch"
+      },
+      {
+        "command": "light-stopwatch.toggleRecordMode",
+        "title": "Toggle Diff/Full Record Mode",
+        "category": "Light Stopwatch"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.99.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.3.2",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.3"
+  }
+}
